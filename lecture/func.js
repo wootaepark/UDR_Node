@@ -22,3 +22,5 @@ function checkOddOrEven(number){
 }
 
 module.exports = checkOddOrEven;
+
+//module.exports!==exports ==={};
