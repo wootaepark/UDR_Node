@@ -11,16 +11,18 @@ const even= value.even; 원래 이렇게 할 수 있는 것을 아래와 같이 
 
 
 const {odd, even}=require('./var');
-
+console.time('zerocho');
 function checkOddOrEven(number){
+  
     if(number % 2 ){
         return odd;
     }else{
         return even;
     }
+   
 
-}
-
+}  
+console.timeEnd('zerocho');
 module.exports = checkOddOrEven;
 
 //module.exports!==exports ==={};
