@@ -17,7 +17,7 @@ async function getUser() { // 로딩 시 사용자 가져오는 함수
             return alert('이름을 반드시 입력하셔야 합니다');
           }
           try {
-            await axios.put('/user/' + key, { name });
+            await axios.put('/user/' + key, { name }); // 서버로 put 요청을 보내는 코드
             getUser();
           } catch (err) {
             console.error(err);
