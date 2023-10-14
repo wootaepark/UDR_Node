@@ -1,15 +1,18 @@
 const express = require('express') // express 모듈을 가져온다.
-
 // express 또한 내부에서 http 메서드를 쓰고 있다.
 
+const path = require('path')
+
+
 const app = express(); // app을 하나 가져옴
+
 
 app.set('port',process.env.PORT||3000); // port 라는 속성을 3000으로 만듬
 // 이때 process.env를 많이 쓸것인데 기본적으로 port는 process.env.PORT를 입력하지 않으면 3000
 // 나중에 설정 방법을 배울 것임
 
 app.get('/',(req,res)=>{
-    res.send('hello express');
+    res.sendFile(path.join(__dirname,'./index.html')); // 이런식으로 index.html에 접근 가능
 });
 
 app.post('/',(req,res)=>{
