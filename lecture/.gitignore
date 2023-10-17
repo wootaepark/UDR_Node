@@ -131,6 +131,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-#/framework/learning_node/lecture/ch6/6.1/learn-express/node_modules/
+
 
 
