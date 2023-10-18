@@ -2,6 +2,7 @@ const express = require('express') // express 모듈을 가져온다.
 // express 또한 내부에서 http 메서드를 쓰고 있다.
 
 const path = require('path')
+// 아래의 path.join 함수를 쓰기위해 path 모듈을 불러옴
 
 
 const app = express(); // app을 하나 가져옴
