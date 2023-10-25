@@ -17,7 +17,7 @@ app.get('/',(req,res)=>{
 });
 
 app.post('/',(req,res)=>{
-    res.send('hello express');
+    res.send('hello express'); // post 요청 시 해당 문자 출력
 });
 
 // 위처럼 http에서 처럼 if 문 쓰지 않고 바로 메소드 별로 구별하여 사용할 수 있는 장점
