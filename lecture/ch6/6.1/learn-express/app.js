@@ -2,8 +2,11 @@ const { error } = require('console');
 const express = require('express') // express 모듈을 가져온다.
 // express 또한 내부에서 http 메서드를 쓰고 있다.
 
-const path = require('path')
+const path = require('path');
 // 아래의 path.join 함수를 쓰기위해 path 모듈을 불러옴
+
+const morgan=require('morgan');
+const cookieParser=require('cookie-parser');
 
 
 const app = express(); // app을 하나 가져옴
@@ -13,15 +16,51 @@ app.set('port',process.env.PORT||3000); // port 라는 속성을 3000으로 만�
 // 이때 process.env를 많이 쓸것인데 기본적으로 port는 process.env.PORT를 입력하지 않으면 3000
 
 
+app.use(morgan('dev'));
+//app.use(morgan('combined'));
+app.use(cookieParser('password'));
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+//app.use(bodyParser.raw()); // 바이너리 데이터
+//app.use(bodyParser.text()); // 문자열 
+
+// raw, text는 잘 안쓰이기 때문에 express 에서 뺌
+
+
+
+
+/*app.use('/',(req,res,next)=>{ 
+    console.log('1 요청 실행');
+    if(true){
+        next('route');
+
+    }
+    else{
+        next();
+    }    
+},(req,res)=>{
+    console.log('실행되나요?');
+})
+
 
 app.use('/',(req,res,next)=>{ // '/' 생략 가능
-    console.log('1 요청 실행');
-    next();
+   console.log('실행 됩니다');
 },
-//(req,res)=>{
-//    throw new Error('에러 발생함');
-//}
+ /*(req,res,next)=>{
+    try{
+        console.log(abcabc);// 임의로 error 발생
+    }catch(error){
+        next(error); // 에러발생 시 실행되는 catch 문
+    }
+}*/
+/*(req,res,next)=>{
+    throw new Error('에러 발생함');
+}
 )
+*/ 
+
+
 
 app.use('/about',(req,res,next)=>{
     console.log('about경로 요청입니다.');
@@ -33,12 +72,37 @@ app.use('/about',(req,res,next)=>{
 
 
 
-app.get('/',(req,res)=>{
-    //res.sendFile(path.join(__dirname,'./index.html')); // 여기서 응답 보내고 끝남
+app.get('/',(req,res,next)=>{
+
+    req.body 
+
+    //req.body.name; // 클라이언트에서 'name'을 보냈으면 그 데이터의 body를 나타낸다.
+
+
+
+
+    /*req.cookies // {mycookie : 'test'}, cookie가 있으면 여기 안에 알아서 넣어준다.
+    req.signedCookies;
+    res.cookie('name',encodeURIComponent(name), {
+        expires: new Date(),
+        httpOnly : true,
+        path : '/',
+    })// 쿠키 관련 조작
+    res.clearCookie('name',encodeURIComponent(name), {
+        httpOnly : true,
+        path : '/',
+    })// 쿠키 삭제
+
+    */
+
+    res.sendFile(path.join(__dirname,'./index.html')); // 여기서 응답 보내고 끝남
    // res.send('안녕하세요'); // 그런데 한번 더 보내려고 하는 것임
     //res.json({'hello':'me'}); 
-    res.setHeader('Content-Type','text/html');
-    res.status(200).send('안녕하세요');
+   // res.setHeader('Content-Type','text/html');
+    //res.status(200).send('안녕하세요');
+
+    //res.json({hello:'my friend'}); // 응답을 보낼 뿐이지 함수 자채를 종료하지는 않는다.
+    //console.log('hello'); // 실행이 된다.
 });
 
 app.post('/',(req,res)=>{
@@ -84,7 +148,7 @@ app.use('*',(err,req,res,next)=>{
     console.error(err);
     res.status(200).send('에러 발생했어요');
 })
-// 에러 에서는 위 4개의 매개변수를 모두 써야한다.
+// 에러 에서는 위 4개의 매개변수를 모두 써야한다. (에러 처리 미들웨어)
 // 위에서 throw new Error 코드 실행시 발생
 
 
