@@ -17,7 +17,7 @@ app.set('port',process.env.PORT||3000); // port 라는 속성을 3000으로 만�
 
 
 app.use(morgan('dev'));
-//app.use(morgan('combined'));
+//app.use(morgan('combined')); // 배포 시 combined 개발 시에는 dev 보통 씀
 app.use(cookieParser('password'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
