@@ -33,11 +33,11 @@ app.use(express.urlencoded({extended:true}));
 /*app.use('/',(req,res,next)=>{ 
     console.log('1 요청 실행');
     if(true){
-        next('route');
+        next('route'); // 다음 라우터 실행 
 
     }
     else{
-        next();
+        next(); // 계속해서 해당 미들웨어의 코드 실행 
     }    
 },(req,res)=>{
     console.log('실행되나요?');
@@ -74,7 +74,7 @@ app.use('/about',(req,res,next)=>{
 
 app.get('/',(req,res,next)=>{
 
-    req.body 
+    //req.body 
 
     //req.body.name; // 클라이언트에서 'name'을 보냈으면 그 데이터의 body를 나타낸다.
 
@@ -128,6 +128,10 @@ app.get('/category/Javascript',(req,res)=>{
 app.get('/category/:name',(req,res)=>{
     res.send(`Hello wildcard`);
     
+     // 위 : name을 category/ 다음에 입력받으면 해당 매개변수에 해당하는 데이터를 
+     // 이 미들웨어에서 사용 가능하다.
+
+
 }) // 와일드 카드 (라우트 매개변수)는 다른 라우터, 미들웨어 보다 아래 있어야 에러 발생 확률 down
 
 
