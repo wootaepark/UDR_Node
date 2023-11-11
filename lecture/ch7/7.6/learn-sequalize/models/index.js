@@ -9,15 +9,14 @@ const db = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 db.sequelize = sequelize;
-db.Sequelize = sequelize;
 
 db.User = User;
 db.Comment = Comment;
 
-User.initiate(sequelize);  // sequelize는 연결 객체이다. 
+User.initiate(sequelize);
 Comment.initiate(sequelize);
 
-//User.associate(db);
-//Comment.associate(db);
+User.associate(db);
+Comment.associate(db);
 
 module.exports = db;
