@@ -35,7 +35,11 @@ class Post extends Sequelize.Model{
 
     } // 테이블 정보 입력
 
-    static associate(db){}
+    static associate(db){
+        db.Post.belongsTo(db.User);
+        db.Post.belongsToMany(db.Hashtag, {through : 'PostHashTag'});
+ // 중간테이블 'PostHashTag' 있다.
+    }
     // 테이블 관계 입력
 }
 

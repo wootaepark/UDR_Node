@@ -5,6 +5,7 @@ const path = require('path');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
+const {sequelize} = require('./models'); // 모델 폴더의 sequelize와 연결 
 
 // process.env.COOKIE_SECRET 없음
 dotenv.config(); // .env 파일의 정보가 process.env 안으로 들어간다.
@@ -19,6 +20,14 @@ nunjucks.configure('views',{
     express:app,
     watch:true,
 });
+
+sequelize.sync({force : false}) // 개발 시에만 force : true를 통해 서버 실행마다 db를 지웠다가 다시 생성함
+    .then(()=>{
+        console.log('데이터베이스 연결 성공');
+    })
+    .catch((err)=>{
+        console.error(err);
+    })
 
 
 app.use(morgan('dev')); // 로깅 개발모드 배포시에는 'combined'

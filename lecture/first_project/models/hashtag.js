@@ -19,14 +19,18 @@ class Hashtag extends Sequelize.Model{
             modelName : 'Hashtag',
             tableName : 'hashtags',
             charset : 'utf8mb4',
-            collate : 'utfmb4_general_ci',
+            collate : 'utf8mb4_general_ci',
         }
         
         )
 
     } // 테이블 정보 입력
 
-    static associate(db){}
+    static associate(db){
+        db.Hashtag.belongsToMany(db.Post, {through : 'PostHashTag'});
+        // 혹시나 위 through 테이블에 직접 접근하기 위해서는 아래와 같이 한다.
+        // db.sequelize.models.PostHashtag
+    }
     // 테이블 관계 입력
 }
 
