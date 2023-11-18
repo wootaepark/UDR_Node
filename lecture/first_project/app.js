@@ -1,18 +1,24 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const morgan = require('morgan');
+const morgan = require('morgan'); // 로깅 모듈
 const path = require('path');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 const {sequelize} = require('./models'); // 모델 폴더의 sequelize와 연결 
+const passport = require('passport');
+
 
 // process.env.COOKIE_SECRET 없음
 dotenv.config(); // .env 파일의 정보가 process.env 안으로 들어간다.
 // process.env.COOKIE_SECRETE 있음 여기서부터 process.env 가 생성되어 쓸 수 있다.
-const pageRouter = require('./routes/page')  // 페이지 라우팅 파일
+const pageRouter = require('./routes/page');  // 페이지 라우팅 파일
+const passportConfig = require('./passport');
+const authRouter = require('./routes/auth');
 
-const app = express();
+const app = express(); //express() 는 object 즉 객체이다.
+
+passportConfig();
 
 app.set('port',process.env.PORT || 8001);
 app.set('view engine','html');
@@ -32,8 +38,8 @@ sequelize.sync({force : false}) // 개발 시에만 force : true를 통해 서�
 
 app.use(morgan('dev')); // 로깅 개발모드 배포시에는 'combined'
 app.use(express.static(path.join(__dirname,'public'))); // public 폴더를 프런트에서 자유롭게 접근 가능케함
-app.use(express.json()); // json 요청받을 수 있도록 함
-app.use(express.urlencoded({extended:false})); // form 요청받을 수 있도록 함
+app.use(express.json()); // json 요청받을 수 있도록 함, req.body를 ajax json 요청으로부터
+app.use(express.urlencoded({extended:false})); // form 요청받을 수 있도록 함, req.body를 form 으로부터
 app.use(cookieParser(process.env.COOKIE_SECRET)); 
 app.use(session({
     resave:false,
@@ -45,7 +51,14 @@ app.use(session({
     }
 }));
 
+// 아래 두 줄의 코드는 반드시 session 미들웨어 아래에 있어야 한다. (세션을 사용하기 때문이다.)  
+app.use(passport.initialize()); // req.user, req.login, req.isAuthenticated, req.logout 이 여기부터 나온다.
+app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 브라우저로 전송된다.
+
 app.use('/',pageRouter);
+app.use('/auth',authRouter);
+
+
 app.use((req,res,next)=>{ // 404 not found 응답을 위함
     const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
     error.status = 404;

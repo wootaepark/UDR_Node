@@ -1,5 +1,5 @@
 exports.renderProfile = (req,res,next)=>{
-    // 서비스를 호출
+    // 서비스를 호출, render를 이용하면 페이지를 가져온다.
 
     res.render('profile', {title: '내 정보 - NodeBird'});
 };
