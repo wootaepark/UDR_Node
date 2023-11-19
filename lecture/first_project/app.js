@@ -40,7 +40,7 @@ app.use(morgan('dev')); // 로깅 개발모드 배포시에는 'combined'
 app.use(express.static(path.join(__dirname,'public'))); // public 폴더를 프런트에서 자유롭게 접근 가능케함
 app.use(express.json()); // json 요청받을 수 있도록 함, req.body를 ajax json 요청으로부터
 app.use(express.urlencoded({extended:false})); // form 요청받을 수 있도록 함, req.body를 form 으로부터
-app.use(cookieParser(process.env.COOKIE_SECRET)); 
+app.use(cookieParser(process.env.COOKIE_SECRET));  // {connect.sid :121323123445}
 app.use(session({
     resave:false,
     saveUninitialized:false,
@@ -54,6 +54,8 @@ app.use(session({
 // 아래 두 줄의 코드는 반드시 session 미들웨어 아래에 있어야 한다. (세션을 사용하기 때문이다.)  
 app.use(passport.initialize()); // req.user, req.login, req.isAuthenticated, req.logout 이 여기부터 나온다.
 app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 브라우저로 전송된다.
+// 브라우저 connect.sid = 121323123445 이런식으로 쿠키 저장 (이게 서버로 오면 쿠키 파서가 분석 후 객체로 만듬)
+
 
 app.use('/',pageRouter);
 app.use('/auth',authRouter);
