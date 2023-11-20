@@ -49,6 +49,8 @@ exports.login = (req, res, next) =>{
     })(req,res,next); // 미들웨어 확장 패턴
 };
 
+
+
 exports.logout = (req,res,next) =>{ // 세션쿠키가 있다. {121213123 : 1} 로그 아웃시 없애버림
     // 브라우저에서 쿠키는 계속 남아 있을 수 있다. 즉 connect.sid 가 남아 있어도 세션 객체가 없어졌기 때문에
     // 로그인이 안된다. 로그아웃의 원리
