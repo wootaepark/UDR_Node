@@ -35,6 +35,8 @@ sequelize.sync({force : false}) // 개발 시에만 force : true를 통해 서�
         console.error(err);
     })
 
+    // 이 코드 이후에 db 관련 코드를 작성해야 함 (sync 를 위함)
+
 
 app.use(morgan('dev')); // 로깅 개발모드 배포시에는 'combined'
 app.use(express.static(path.join(__dirname,'public'))); // public 폴더를 프런트에서 자유롭게 접근 가능케함
