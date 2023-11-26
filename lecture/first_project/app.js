@@ -15,6 +15,7 @@ dotenv.config(); // .env 파일의 정보가 process.env 안으로 들어간다.
 const pageRouter = require('./routes/page');  // 페이지 라우팅 파일
 const passportConfig = require('./passport');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post'); 
 
 const app = express(); //express() 는 object 즉 객체이다.
 
@@ -40,6 +41,7 @@ sequelize.sync({force : false}) // 개발 시에만 force : true를 통해 서�
 
 app.use(morgan('dev')); // 로깅 개발모드 배포시에는 'combined'
 app.use(express.static(path.join(__dirname,'public'))); // public 폴더를 프런트에서 자유롭게 접근 가능케함
+app.use('/img',express.static(path.join(__dirname,'uploads')));
 app.use(express.json()); // json 요청받을 수 있도록 함, req.body를 ajax json 요청으로부터
 app.use(express.urlencoded({extended:false})); // form 요청받을 수 있도록 함, req.body를 form 으로부터
 app.use(cookieParser(process.env.COOKIE_SECRET));  // {connect.sid :121323123445}
@@ -61,6 +63,7 @@ app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 
 
 app.use('/',pageRouter);
 app.use('/auth',authRouter);
+app.use('/post',postRouter);
 
 
 app.use((req,res,next)=>{ // 404 not found 응답을 위함

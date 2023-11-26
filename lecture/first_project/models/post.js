@@ -11,7 +11,7 @@ class Post extends Sequelize.Model{
 
             
             },
-            image : { // 이미지의 경우 이경우는 하나만 올리는데, 여러개를 올리는 경우 별도의 테이블로
+            img : { // 이미지의 경우 이경우는 하나만 올리는데, 여러개를 올리는 경우 별도의 테이블로
                       // 관계를 정의해주는게 좋다. 게시글 1, 이미지 n (1:n 관계)
                 type : Sequelize.STRING(200), 
                 allowNull : true,
