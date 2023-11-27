@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {renderJoin,renderMain,renderProfile} = require('../controllers/page');
+const {renderJoin,renderMain,renderProfile, renderHashtag} = require('../controllers/page');
 const {isLoggedIn,isNotLoggedIn} = require('../middlewares');
 
 router.use((req,res,next)=>{
@@ -22,6 +22,7 @@ router.use((req,res,next)=>{
 router.get('/profile', isLoggedIn,renderProfile);
 router.get('/join',isNotLoggedIn,renderJoin);
 router.get('/',renderMain); // 메인 화면
+router.get('/hashtag',renderHashtag); // hashtag?hashtag=고양이
 
 
 
