@@ -11,7 +11,22 @@ module.exports = () =>{
     // 따라서 유저 아이디만 추출해서 저장)
 
     passport.deserializeUser((id, done)=>{ // id : 1
-        User.findOne({where : {id}})
+        User.findOne({
+            where : {id},
+            include : [
+                {
+                    model : User,
+                    attributes : ['id','nick'],
+                    as :'Followers',
+                },// 팔로잉
+                {
+                    model : User,
+                    attributes : ['id','nick'],
+                    as :'Followings',
+                }, // 팔로워
+            ]
+        
+        })
         .then((user)=>done(null,user)) // 위 id를 가지고 온 user 가 req.user가 된다. 
         .catch(err=>done(err));
     });

@@ -6,9 +6,14 @@ const {isLoggedIn,isNotLoggedIn} = require('../middlewares');
 
 router.use((req,res,next)=>{
     res.locals.user = req.user;
-    res.locals.followerCount = 0;
-    res.locals.followingCount = 0;
-    res.locals.followingIdList = [];
+
+     // await User.find, 여기서 이와 같이 찾아서 써도 된다. 
+     // req.user가 너무 커지면 좋지 않기 때문 (디시리얼라이즈 경우)
+
+    res.locals.followerCount = req.user?.Followers?.length || 0;
+    res.locals.followingCount = req.user?.Followings?.length || 0;
+    res.locals.followingIdList = req.user?.Followings?.map(f => f.id) || [];
+     // null 이어도 에러 안나도록 ? 옵션추가
     next();
 });
 // 라우터들이 쓸 수 있는 공통 변수를 지정하는 곳이다.

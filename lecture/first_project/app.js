@@ -16,6 +16,7 @@ const pageRouter = require('./routes/page');  // 페이지 라우팅 파일
 const passportConfig = require('./passport');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post'); 
+const userRouter = require('./routes/user'); 
 
 const app = express(); //express() 는 object 즉 객체이다.
 
@@ -64,6 +65,7 @@ app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 
 app.use('/',pageRouter);
 app.use('/auth',authRouter);
 app.use('/post',postRouter);
+app.use('/user',userRouter);
 
 
 app.use((req,res,next)=>{ // 404 not found 응답을 위함
