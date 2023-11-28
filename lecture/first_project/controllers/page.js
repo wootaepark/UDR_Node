@@ -50,7 +50,7 @@ exports.renderHashtag = async (req, res, next) => {
   }
   try {
     const hashtag = await Hashtag.findOne({ where: { title: query } });
-    let posts = [];
+    let posts = []; // posts 내부 내용 변화 가능하므로 let을 씀
     if (hashtag) {
       posts = await hashtag.getPosts({ include: [{ model: User }] });
     }
