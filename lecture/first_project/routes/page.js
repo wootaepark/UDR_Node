@@ -20,7 +20,7 @@ router.use((req,res,next)=>{
 
 
 router.get('/profile', isLoggedIn,renderProfile);
-router.get('/join',isNotLoggedIn,renderJoin); //auth 의 /join 과는 다른역할
+router.get('/join',isNotLoggedIn,renderJoin); //auth 의 /join 과는 다른역할 (클라이언트가 어느정도 까지 서버에 들어 올수 있는지에 대한 제한성이 있다. 보안 또는 트래픽 관리)
 router.get('/',renderMain); // 메인 화면
 router.get('/hashtag',renderHashtag); // hashtag?hashtag=고양이
 

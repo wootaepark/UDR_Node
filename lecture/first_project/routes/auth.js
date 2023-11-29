@@ -9,7 +9,7 @@ const {join,login,logout} = require('../controllers/auth')
 // auth + /join 이 된다. 아래의 경우
 router.post('/join',isNotLoggedIn,join); 
 //POST /auth/login
-router.post('/login',isNotLoggedIn,login);  // isNotLoggedIn 은 미들웨어
+router.post('/login',isNotLoggedIn,login);  // isNotLoggedIn 은 미들웨어, 이후 login 이 실행된다.
 //POST /auth/logout
 router.get('/logout',isLoggedIn,logout); 
 
