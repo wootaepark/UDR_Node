@@ -11,7 +11,7 @@ module.exports = () =>{
     // 따라서 유저 아이디만 추출해서 저장)
 
     passport.deserializeUser((id, done)=>{ // id : 1
-        User.findOne({
+        User.findOne({ // 모델을 통해 해당 id 의 유저를 찾음
             where : {id},
             include : [
                 {
