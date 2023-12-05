@@ -8,7 +8,7 @@ exports.follow = async (req,res,next)=>{
         if(user){
 
             await user.addFollowing(parseInt(req.params.id,10)) ; // 문자열을 숫자로 변경
-            res.send('success');
+            res.send('success'); // res 이후에는 아래 코드가 진행되지 않는다.
         }
         else{
             // db 에 유저가 없는경우 안전장치
