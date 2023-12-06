@@ -11,7 +11,7 @@ exports.follow = async (req,res,next)=>{
             res.send('success'); // res 이후에는 아래 코드가 진행되지 않는다.
         }
         else{
-            // db 에 유저가 없는경우 안전장치
+            // db 에 유저가 없는경우 no user 보냄
             res.status(404).send('no user');
         }
         
