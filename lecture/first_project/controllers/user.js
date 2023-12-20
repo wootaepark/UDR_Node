@@ -18,7 +18,7 @@ exports.follow = async (req,res,next)=>{
         
     }catch(error){
         console.error(error);
-        next(error); // 에러 미들웨어
+        next(error); // 에러 미들웨어 이다.
 
     }
 }
