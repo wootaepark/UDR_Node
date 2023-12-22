@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize'); // user 정보 
 
 class User extends Sequelize.Model {
   static initiate(sequelize) {
