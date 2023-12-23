@@ -58,7 +58,7 @@ document.querySelectorAll('#user-list tr').forEach((el) => {
         row.appendChild(td);
         const edit = document.createElement('button');
         edit.textContent = '수정';
-        edit.addEventListener('click', async () => { // 수정 클릭 시
+        edit.addEventListener('click', async () => { // 수정 클릭 
           const newComment = prompt('바꿀 내용을 입력하세요');
           if (!newComment) {
             return alert('내용을 반드시 입력하셔야 합니다');
@@ -72,7 +72,7 @@ document.querySelectorAll('#user-list tr').forEach((el) => {
         });
         const remove = document.createElement('button');
         remove.textContent = '삭제';
-        remove.addEventListener('click', async () => { // 삭제 클릭 시
+        remove.addEventListener('click', async () => { // 삭제 클릭 
           try {
             await axios.delete(`/comments/${comment.id}`);
             getComment(id);
